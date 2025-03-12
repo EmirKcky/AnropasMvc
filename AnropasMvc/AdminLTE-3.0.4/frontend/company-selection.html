@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şirket Seçimi - ANROPAS</title>
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Dosyaları -->
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+</head>
+<body>
+    <div class="login-page narrow-form">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>ANROPAS</h1>
+                <div class="dot"></div>
+                <h2>Şirket Seçimi</h2>
+            </div>
+            <div class="login-form">
+                <div class="company-options">
+                    <a href="company-create.html" class="company-option">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3>Yeni Şirket Oluştur</h3>
+                        <p>Yeni bir şirket hesabı oluşturun ve yönetin</p>
+                    </a>
+                    <a href="company-join.html" class="company-option">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <h3>Şirkete Katıl</h3>
+                        <p>Mevcut bir şirkete katılın</p>
+                    </a>
+                </div>
+                <div class="register-option">
+                    <a href="#" class="register-link" onclick="handleLogout(event)">Çıkış Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // API endpoint'leri
+        const API_ENDPOINTS = {
+            LOGOUT: '/api/auth/logout'
+        };
+
+        // Toast bildirimi göster
+        const showToast = (icon, title) => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            Toast.fire({
+                icon,
+                title
+            });
+        };
+
+        // Çıkış yap
+        async function handleLogout(event) {
+            event.preventDefault();
+            
+            try {
+                const response = await fetch(API_ENDPOINTS.LOGOUT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Çıkış yapılamadı');
+                }
+
+                showToast('success', 'Çıkış yapılıyor...');
+                
+                // Kısa bir gecikme ile yönlendirme yap
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+
+            } catch (error) {
+                console.error('Çıkış hatası:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hata',
+                    text: error.message || 'Çıkış yapılırken bir hata oluştu. Lütfen tekrar deneyin.',
+                    confirmButtonText: 'Tamam',
+                    customClass: {
+                        confirmButton: 'swal-button'
+                    }
+                });
+            }
+        }
+
+        // Oturum kontrolü
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/auth/check-session');
+                if (!response.ok) {
+                    // Oturum yoksa login sayfasına yönlendir
+                    showToast('error', 'Oturum bulunamadı');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1000);
+                }
+            } catch (error) {
+                console.error('Oturum kontrolü hatası:', error);
+                showToast('error', 'Oturum kontrolü başarısız oldu');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,87 @@
+
+<style >
+body {
+  background-color: #ffffff !important;
+  position: relative !important;
+}
+
+body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0.05 !important;
+  background: radial-gradient(circle at 0% 0%, #f0f4ff 15px, transparent 16px) 40px 40px, radial-gradient(circle at 100% 0%, #e6eeff 15px, transparent 16px) 40px 40px, linear-gradient(45deg, #f5f7ff 12px, transparent 13px) 20px 20px !important;
+  background-size: 80px 80px, 80px 80px, 40px 40px !important;
+  background-color: #ffffff !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+@keyframes dashboardBackgroundAnimation {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 1000px 1000px, 1000px 1000px, 500px 500px;
+  }
+}
+
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #333;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-title {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  max-width: 80%;
+}
+
+  .welcome-title:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+.firm-name {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+  .firm-name::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    border-radius: 2px;
+  }
+
+.welcome-text {
+  font-size: 2rem;
+  font-weight: normal;
+  color: #4b5563;
+  margin-top: 20px;
+}
+
+</style >

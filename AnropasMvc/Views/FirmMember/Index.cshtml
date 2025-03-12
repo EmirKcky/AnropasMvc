@@ -1,0 +1,61 @@
+﻿@model EntityLayer.Concreate.Firm
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_FirmMemberLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .welcome-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('/images/your-image.jpg'); /* Kendi resminizi ekleyin */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .welcome-title {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .firm-name {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #26abff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .welcome-text {
+            font-size: 2rem;
+            font-weight: normal;
+            color: #ffffff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-title">
+            <div class="firm-name">
+                @Model.FirmName
+            </div>
+            <div class="welcome-text">
+                Psikolog Paneline Hoşgeldiniz
+            </div>
+        </div>
+    </div>
+</body>
+</html>

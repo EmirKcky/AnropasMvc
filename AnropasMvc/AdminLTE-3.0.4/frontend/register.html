@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - ANROPAS</title>
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Dosyaları -->
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+</head>
+<body>
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        <span>Anasayfa</span>
+    </a>
+    <div class="login-page" style="max-width: 600px;">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>ANROPAS</h1>
+                <div class="dot"></div>
+                <h2>Kayıt Ol</h2>
+            </div>
+            <div class="login-form">
+                <form id="register-form" onsubmit="handleRegisterSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Ad" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="surname" name="surname" placeholder="Soyad" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="E-posta" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group input-with-icon">
+                            <input type="password" id="password" name="password" placeholder="Şifre" required>
+                            <i class="fas fa-eye-slash toggle-password" onclick="togglePassword(this)"></i>
+                        </div>
+                        <div class="form-group input-with-icon">
+                            <input type="password" id="password_confirm" name="password_confirm" placeholder="Şifre Tekrar" required>
+                            <i class="fas fa-eye-slash toggle-password" onclick="togglePassword(this)"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="birthdate" class="input-label">Doğum Tarihi</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="input-label">Cinsiyet</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="gender-female" name="gender" value="female" required>
+                                    <label for="gender-female">Kadın</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="gender-male" name="gender" value="male" required>
+                                    <label for="gender-male">Erkek</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <select id="title" name="title" required>
+                                <option value="">Ünvan Seçiniz</option>
+                                <!-- Ünvanlar dinamik olarak buraya eklenecek -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="registerButton">
+                        <span class="btn-text">Kayıt Ol</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                </form>
+                <div class="register-option">
+                    <span>Zaten hesabınız var mı?</span>
+                    <a href="login.html" class="register-link">Giriş Yapın</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // API endpoint'leri
+        const API_ENDPOINTS = {
+            REGISTER: '/api/auth/register',
+            GET_TITLES: '/api/titles'
+        };
+
+        // Toast bildirimi göster
+        const showToast = (icon, title) => {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            Toast.fire({
+                icon,
+                title
+            });
+        };
+
+        // Sayfa yüklendiğinde ünvanları getir
+        document.addEventListener('DOMContentLoaded', async () => {
+            await fetchTitles();
+        });
+
+        // Ünvanları getir
+        async function fetchTitles() {
+            const titleSelect = document.getElementById('title');
+            
+            try {
+                const response = await fetch(API_ENDPOINTS.GET_TITLES);
+                if (!response.ok) {
+                    throw new Error('Ünvanlar getirilemedi');
+                }
+
+                const titles = await response.json();
+                
+                // Ünvanları listele
+                titles.forEach(title => {
+                    const option = document.createElement('option');
+                    option.value = title.id;
+                    option.textContent = title.name;
+                    titleSelect.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error('Ünvan listesi hatası:', error);
+                showToast('error', 'Ünvanlar yüklenirken bir hata oluştu');
+            }
+        }
+
+        // Şifre göster/gizle
+        function togglePassword(element) {
+            const input = element.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                element.classList.remove('fa-eye-slash');
+                element.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                element.classList.remove('fa-eye');
+                element.classList.add('fa-eye-slash');
+            }
+        }
+// Konsola bilgi yazdır
+console.log('Sayfa yüklendi, şifre gösterme/gizleme işlevi hazır');
+
+// Tüm toggle-password ikonlarını seç
+const toggleIcons = document.querySelectorAll('.toggle-password');
+console.log('Bulunan toggle-password ikonları:', toggleIcons.length);
+
+// Her ikona tıklama olayı ekle
+toggleIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+        console.log('İkona tıklandı');
+        const input = this.previousElementSibling;
+        console.log('Input tipi değiştirilecek:', input.type);
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.classList.remove('fa-eye-slash');
+            this.classList.add('fa-eye');
+        } else {
+            input.type = 'password';
+            this.classList.remove('fa-eye');
+            this.classList.add('fa-eye-slash');
+        }
+        
+        console.log('Input tipi değiştirildi:', input.type);
+    });
+});
+        // Form gönderimi
+        async function handleRegisterSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const button = form.querySelector('#registerButton');
+            const spinner = button.querySelector('.spinner-border');
+            const btnText = button.querySelector('.btn-text');
+
+            // Şifre kontrolü
+            const password = form.querySelector('#password').value;
+            const passwordConfirm = form.querySelector('#password_confirm').value;
+
+            if (password !== passwordConfirm) {
+                showToast('error', 'Şifreler eşleşmiyor!');
+                return;
+            }
+
+            try {
+                // Loading durumunu göster
+                button.disabled = true;
+                spinner.classList.remove('d-none');
+                btnText.textContent = 'Kayıt Yapılıyor...';
+
+                const formData = new FormData(form);
+                formData.delete('password_confirm'); // Backend'e gönderilmeyecek
+
+                const response = await fetch(API_ENDPOINTS.REGISTER, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(Object.fromEntries(formData))
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.message || 'Kayıt başarısız oldu');
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Kayıt Başarılı!',
+                    text: 'Giriş sayfasına yönlendiriliyorsunuz...',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'swal2-popup'
+                    }
+                }).then(() => {
+                    window.location.href = 'login.html';
+                });
+
+            } catch (error) {
+                console.error('Kayıt hatası:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Kayıt Başarısız',
+                    text: error.message || 'Lütfen bilgilerinizi kontrol edip tekrar deneyin.',
+                    confirmButtonText: 'Tamam',
+                    customClass: {
+                        confirmButton: 'swal-button'
+                    }
+                });
+            } finally {
+                // Loading durumunu kaldır
+                button.disabled = false;
+                spinner.classList.add('d-none');
+                btnText.textContent = 'Kayıt Ol';
+            }
+        }
+    </script>
+</body>
+</html> 

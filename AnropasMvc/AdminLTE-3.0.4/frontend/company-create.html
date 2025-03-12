@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firma Oluştur - ANROPAS</title>
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Dosyaları -->
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css">
+</head>
+<body>
+    <a href="company-selection.html" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        <span>Geri Dön</span>
+    </a>
+    <div class="login-page wide-form">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>ANROPAS</h1>
+                <div class="dot"></div>
+                <h2>Firma Oluştur</h2>
+            </div>
+            <div class="login-form">
+                <form id="company-form" onsubmit="handleCompanySubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" id="company_name" name="company_name" placeholder="Firma Adı" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Firma Telefonu" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Firma E-posta Adresi" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="about" name="about" placeholder="Firma Hakkında Bilgi" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="file-upload">
+                            <input type="file" id="logo" name="logo" accept="image/*">
+                            <label for="logo">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Firma Logosu Yükle</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Paketler Bölümü -->
+                    <div class="package-selection">
+                        <h3>Paket Seçimi</h3>
+                        <div class="package-options">
+                            <!-- Başlangıç Paketi -->
+                            <div class="package-card">
+                                <div class="package-header">
+                                    <h4>Başlangıç Paketi</h4>
+                                    <div class="price">₺1,999<span>/ay</span></div>
+                                </div>
+                                <ul class="package-features">
+                                    <li><i class="fas fa-check"></i> 50 Çalışan</li>
+                                    <li><i class="fas fa-check"></i> Temel Raporlama</li>
+                                    <li><i class="fas fa-check"></i> E-posta Desteği</li>
+                                </ul>
+                                <div class="package-select">
+                                    <input type="radio" name="package" id="starter" value="starter" required>
+                                    <label for="starter">Seç</label>
+                                </div>
+                            </div>
+
+                            <!-- Pro Paket -->
+                            <div class="package-card recommended">
+                                <div class="package-header">
+                                    <h4>Pro Paket</h4>
+                                    <div class="price">₺3,999<span>/ay</span></div>
+                                </div>
+                                <ul class="package-features">
+                                    <li><i class="fas fa-check"></i> 200 Çalışan</li>
+                                    <li><i class="fas fa-check"></i> Gelişmiş Raporlama</li>
+                                    <li><i class="fas fa-check"></i> 7/24 Destek</li>
+                                    <li><i class="fas fa-check"></i> API Erişimi</li>
+                                </ul>
+                                <div class="package-select">
+                                    <input type="radio" name="package" id="pro" value="pro" required>
+                                    <label for="pro">Seç</label>
+                                </div>
+                            </div>
+
+                            <!-- Enterprise Paket -->
+                            <div class="package-card">
+                                <div class="package-header">
+                                    <h4>Enterprise Paket</h4>
+                                    <div class="price">₺7,999<span>/ay</span></div>
+                                </div>
+                                <ul class="package-features">
+                                    <li><i class="fas fa-check"></i> Sınırsız Çalışan</li>
+                                    <li><i class="fas fa-check"></i> Özel Raporlama</li>
+                                    <li><i class="fas fa-check"></i> Öncelikli Destek</li>
+                                    <li><i class="fas fa-check"></i> Özel Entegrasyonlar</li>
+                                    <li><i class="fas fa-check"></i> Yerinde Eğitim</li>
+                                </ul>
+                                <div class="package-select">
+                                    <input type="radio" name="package" id="enterprise" value="enterprise" required>
+                                    <label for="enterprise">Seç</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="createButton">
+                        <span class="btn-text">Firma Oluştur</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+     
+</body>
+</html> 

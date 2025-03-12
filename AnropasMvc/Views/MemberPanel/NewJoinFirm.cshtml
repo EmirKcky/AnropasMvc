@@ -1,0 +1,51 @@
+﻿@model EntityLayer.Concreate.Firm
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body>
+
+
+
+    <h2>Yeni Firmaya Katıl</h2>
+    @using (Html.BeginForm("NewJoinFirm", "MemberPanel", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.Label("Firma İsmi Giriniz:")
+            @Html.TextBoxFor(x => x.FirmName, new { @class = "form-control" })
+            <br />
+            @Html.Label("Firma Kodunu Giriniz:")
+            @Html.TextBoxFor(x => x.FirmCode, new { @class = "form-control" })
+            <br />
+            <button class="btn btn-success">Firmaya Katıl</button>
+        </div>
+    }
+
+
+
+
+
+
+    <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="~/AdminLTE-3.0.4/dist/js/adminlte.js"></script>
+
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="~/AdminLTE-3.0.4/plugins/chart.js/Chart.min.js"></script>
+    <script src="~/AdminLTE-3.0.4/dist/js/demo.js"></script>
+    <script src="~/AdminLTE-3.0.4/dist/js/pages/dashboard3.js"></script>
+</body>
+</html>

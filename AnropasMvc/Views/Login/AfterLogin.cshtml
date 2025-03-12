@@ -1,0 +1,176 @@
+﻿
+@{
+    Layout = null;
+}
+
+@*<!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                display: flex;
+                width: 100%;
+                height: 100vh;
+            }
+
+            .sol-kism {
+                width: 50%;
+                background-image: url("sol-kism-arkaplan.jpg"); /* Kendi fotoğrafınızı kullanın */
+                background-size: cover;
+                background-position: center;
+                color: black;
+                padding: 20px;
+                text-align: center;
+                background-color: #112233;
+            }
+
+            .sag-kism {
+                width: 50%;
+                padding: 20px;
+                text-align: center;
+                background-color: #112233;
+            }
+
+            h1 {
+                font-size: 3em;
+                margin-bottom: 20px;
+                color: #54174f;
+            }
+
+            p {
+                font-size: 1.1em;
+                line-height: 1.6;
+                color: aliceblue;
+            }
+
+            .sag-button, .sol-button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #445566;
+                color: white;
+                text-decoration: none;
+                border: 1px;
+                border-radius: 20px;
+            }
+
+                .sag-button:hover, .sol-button:hover {
+                    background-color: #A8EB12;
+                    color: black;
+                }
+
+            .main-menu {
+                opacity: 0.9;
+            }
+
+            .sag-yazi {
+                width: 400px;
+                margin-left: -100px;
+                padding: 200px;
+                border: solid 5px;
+                border-color: #A8EB12;
+                text-align: center;
+                height: 100px;
+                padding-top: 50px;
+                margin-top: 150px;
+                padding-right: 50px;
+                padding-left: 50px;
+                margin-left: 50px;
+                border-radius: 30px;
+            }
+
+            .sol-yazi {
+                width: 300px;
+                padding: 200px;
+                border: solid 5px;
+                border-color: #A8EB12;
+                text-align: center;
+                height: 100px;
+                padding-top: 50px;
+                margin-top: 150px;
+                padding-right: 50px;
+                padding-left: 50px;
+                margin-left: 150px;
+                width: 400px;
+                border-radius: 30px;
+            }
+        </style>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/assets/css/main.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="sol-kism">
+                <div class="sol-yazi">
+                    <h1><span style="color:#F28123;">Firma </span> <span style="color:#ddeeff;"> Kur </span></h1>
+                    <p style="color:#ddeeff;"><strong> Kendi işinizi kurmak ister misiniz? Hayallerinizdeki firmayı hayata geçirmenize yardımcı olacak kaynaklara ve bilgilere buradan ulaşabilirsiniz.</strong></p>
+                    <a href="/MemberPanel/CreateFirm/" class="sol-button">Firma Oluştur</a>
+                </div>
+            </div>
+
+            <div class="sag-kism">
+                <div class="sag-yazi">
+                    <h1><span style="color:#F28123;">Firmaya </span> <span style="color:#ddeeff;"> Katıl </span></h1>
+                    <p style="color:#ddeeff;"><strong> Başarılı bir ekibin parçası olmak ve sektörde fark yaratmak ister misiniz? İşe alım pozisyonlarımız hakkında bilgi edinin ve bize katılın.</strong></p>
+                    <a href="/MemberPanel/JoinFirm/" class="sag-button">Firmaya Katıl</a>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    </html>*@
+
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şirket Seçimi - ANROPAS</title>
+    <!-- Favicon -->
+    <link rel="icon" href="/AdminLTE-3.0.4/frontend/img/favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Dosyaları -->
+    <link rel="stylesheet" href="/AdminLTE-3.0.4/frontend/css/auth.css">
+</head>
+<body>
+    <div class="login-page narrow-form">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>ANROPAS</h1>
+                @*<div class="dot"></div>*@
+                <h2>Şirket Seçimi</h2>
+            </div>
+            <div class="login-form">
+                <div class="company-options">
+                    <a href="/MemberPanel/CreateFirm/" class="company-option">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3>Yeni Şirket Oluştur</h3>
+                        <p>Yeni bir şirket hesabı oluşturun ve yönetin</p>
+                    </a>
+                    <a href="/MemberPanel/JoinFirm/" class="company-option">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <h3>Şirkete Katıl</h3>
+                        <p>Mevcut bir şirkete katılın</p>
+                    </a>
+                </div>
+                <div class="register-option">
+                    <a href="/Home/HomePage/" class="register-link" @*onclick="handleLogout(event)"*@>Çıkış Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/AdminLTE-3.0.4/frontend/js/auth.js"></script>
+</body>
+</html> 
