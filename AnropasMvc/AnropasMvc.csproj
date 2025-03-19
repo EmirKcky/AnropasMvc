@@ -135,6 +135,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MemberDataController.cs" />
     <Compile Include="Controllers\MemberPanelController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2603,6 +2604,8 @@
     <Content Include="Views\FirmData\Index.cshtml" />
     <Content Include="Views\FirmAdmin\MemberProfile.cshtml" />
     <Content Include="Views\MemberData\Index.cshtml" />
+    <Content Include="Views\Session\AdminSessionIndex.cshtml" />
+    <Content Include="Views\Session\MemberSessionIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdminLTE-3.0.4\frontend\img\" />
